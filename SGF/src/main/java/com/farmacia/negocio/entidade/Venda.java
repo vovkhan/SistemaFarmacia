@@ -1,7 +1,7 @@
 package com.farmacia.negocio.entidade;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 public class Venda {
 
@@ -9,7 +9,7 @@ public class Venda {
 
     private LocalDateTime dataHora;
 
-    private List<ItemVenda> itens;
+    private ArrayList<ItemVenda> itens;
 
     private Cliente cliente;
 
