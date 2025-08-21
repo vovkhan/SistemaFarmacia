@@ -6,8 +6,9 @@ public abstract class Produto {
     private String nome;
     private double preco;
     private String fabricante;
+    private int estoqueMinimo;
 
-    public Produto(String nome, double preco, String fabricante) {
+    public Produto(String nome, double preco, String fabricante, int estoqueMinimo) {
         if (nome == null || nome.trim().isEmpty()) {
             //O Produto tem que ter um nome
         }
@@ -17,6 +18,7 @@ public abstract class Produto {
         this.nome = nome;
         this.preco = preco;
         this.fabricante = fabricante;
+        this.estoqueMinimo = estoqueMinimo;
     }
 
     public abstract int calcularPontosGerados(int quantidadeVendida);
@@ -46,6 +48,14 @@ public abstract class Produto {
             //Preço do produto não pode ser negativo
         }
         this.preco = preco;
+    }
+
+    public int getEstoqueMinimo() {
+        return estoqueMinimo;
+    }
+
+    public void setEstoqueMinimo(int estoqueMinimo) {
+        this.estoqueMinimo = estoqueMinimo;
     }
 
     public String getNome() {

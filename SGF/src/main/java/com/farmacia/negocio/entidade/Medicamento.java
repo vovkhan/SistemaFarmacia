@@ -8,8 +8,8 @@ public class Medicamento extends Produto {
     private final boolean necessitaReceita;
     private final String tarja;
 
-    public Medicamento(String nome, double preco, String fabricante, boolean necessitaReceita, String tarja) {
-        super(nome, preco, fabricante);
+    public Medicamento(String nome, double preco, String fabricante, int estoqueMinimo, boolean necessitaReceita, String tarja) {
+        super(nome, preco, fabricante, estoqueMinimo);
         this.necessitaReceita = necessitaReceita;
 
         if (!isTarjaValida(tarja)) {
@@ -33,10 +33,20 @@ public class Medicamento extends Produto {
 
     @Override
     public int calcularPontosGerados(int quantidadeVendida) {
+        int pontosBase;
+
         if ("Preta".equalsIgnoreCase(this.tarja)) {
-            return 0;
+            pontosBase = 12;
+        } else if ("Amarela".equalsIgnoreCase(this.tarja)) {
+            pontosBase = 9;
+        } else if ("Vermelha".equalsIgnoreCase(this.tarja)) {
+            pontosBase = 6;
+        } else if ("Sem Tarja".equalsIgnoreCase(this.tarja)) {
+            pontosBase = 3;
+        } else{
+            pontosBase = 2;
         }
-        return 5 * quantidadeVendida;
+        return pontosBase * quantidadeVendida;
     }
 
     public boolean EhNecessitaReceita() {

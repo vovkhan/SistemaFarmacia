@@ -3,8 +3,8 @@ package com.farmacia.negocio.entidade;
 public class Conveniencia extends Produto {
     private final boolean ehAlimento;
 
-    public Conveniencia(String nome, double preco, String fabricante, boolean ehAlimento) {
-        super(nome, preco, fabricante);
+    public Conveniencia(String nome, double preco, String fabricante, int estoqueMinimo, boolean ehAlimento) {
+        super(nome, preco, fabricante, estoqueMinimo);
         this.ehAlimento = ehAlimento;
     }
 
