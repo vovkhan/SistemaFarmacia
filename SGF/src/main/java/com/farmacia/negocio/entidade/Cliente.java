@@ -2,11 +2,8 @@ package com.farmacia.negocio.entidade;
 
 public class Cliente {
     private int id;
-
     private String nome;
-
     private String cpf;
-
     private int pontosFidelidade;
 
     public String getNome() {
