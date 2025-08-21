@@ -10,8 +10,8 @@ public class Cosmetico extends Produto {
 
     private final String tipoDeUso;
 
-    public Cosmetico(String nome, double preco, String fabricante, String tipoDeUso) {
-        super(nome, preco, fabricante);
+    public Cosmetico(String nome, double preco, String fabricante, int estoqueMinimo, String tipoDeUso) {
+        super(nome, preco, fabricante, estoqueMinimo);
 
         if (!isTipoDeUsoValido(tipoDeUso)) {
             //Tipo de uso inválido
@@ -42,7 +42,7 @@ public class Cosmetico extends Produto {
         } else if ("Unhas".equalsIgnoreCase(this.tipoDeUso)) {
             pontosBase = 8;
         } else {
-            pontosBase = 10; // Padrão
+            pontosBase = 10;
         }
 
         return pontosBase * quantidadeVendida;
