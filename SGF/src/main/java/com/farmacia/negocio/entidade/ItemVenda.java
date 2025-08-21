@@ -1,37 +1,47 @@
 package com.farmacia.negocio.entidade;
 
 public class ItemVenda {
-    private Produto produto;
+    private final Produto produto;
+    private final int quantidade;
+    private final double precoUnitarioGravado;
 
-    private int quantidade;
+    public ItemVenda(Produto produto, int quantidade, double precoUnitarioGravado) {
+        if (produto == null) {
+            //O item tem que ter um produto
+        }
+        if (quantidade <= 0) {
+            //O item tem que ter uma quantidade valida
+        }
+        if (precoUnitarioGravado < 0) {
+            //O preço do produto tem que ser valido
+        }
 
-    private double precoUnitarioGravado;
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.precoUnitarioGravado = precoUnitarioGravado;
+    }
+
+    public double calcularSubtotal() {
+        return this.quantidade * this.precoUnitarioGravado;
+    }
 
     public Produto getProduto() {
         return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
     }
 
     public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public double getPrecoUnitarioGravado() {
         return precoUnitarioGravado;
     }
 
-    public void setPrecoUnitarioGravado(double precoUnitarioGravado) {
-        this.precoUnitarioGravado = precoUnitarioGravado;
-    }
-
-    public double calcularSubtotal(){
-        return quantidade * precoUnitarioGravado;
+    @Override
+    public String toString() {
+        return "Item: " + produto.getNome() +
+                " | Qtd: " + quantidade +
+                " | Preço Un.: R$" + String.format("%.2f", precoUnitarioGravado) +
+                " | Subtotal: R$" + String.format("%.2f", calcularSubtotal());
     }
 }
