@@ -95,7 +95,6 @@ public class Venda {
     }
 
     public double getValorTotal() {
-        // Garante que o total está sempre calculado antes de ser retornado
         calcularTotais();
         return valorTotal;
     }
