@@ -1,4 +1,3 @@
-// Localização: src/com/farmacia/ui/TelaCadastroProduto.java
 package com.farmacia.ui;
 
 import com.farmacia.fachada.FachadaFarmacia;

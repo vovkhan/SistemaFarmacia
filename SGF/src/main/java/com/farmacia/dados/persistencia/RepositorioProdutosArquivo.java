@@ -4,8 +4,6 @@ import com.farmacia.negocio.entidade.Produto;
 import com.farmacia.dados.repositorio.IRepositorioProdutos;
 import com.farmacia.negocio.servico.GeradorDeCodigoService;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
