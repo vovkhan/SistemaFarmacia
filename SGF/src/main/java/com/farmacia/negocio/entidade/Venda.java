@@ -50,7 +50,10 @@ public class Venda implements Serializable {
      * Cada 10 pontos acumulados equivale a R$ 1,00.
      */
     public void calcularTotais() {
-        double valorBruto = this.itens.stream().mapToDouble(ItemVenda::calcularSubtotal).sum();
+        double valorBruto = 0.0;
+        for (ItemVenda item : this.itens) {
+            valorBruto += item.calcularSubtotal();
+        }
         double valorDoDesconto = this.pontosUsadosParaDesconto / 10.0;
         this.valorTotal = Math.max(0, valorBruto - valorDoDesconto);
     }

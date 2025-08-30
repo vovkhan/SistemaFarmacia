@@ -10,8 +10,6 @@ import java.util.Objects;
  * Define os atributos e comportamentos comuns a todos.
  */
 public abstract class Funcionario implements Serializable {
-
-    // --- Atributos Comuns ---
     private int id;
     private String codigo;
     private String nome;
