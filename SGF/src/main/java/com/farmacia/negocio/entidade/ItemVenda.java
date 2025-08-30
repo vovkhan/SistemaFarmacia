@@ -1,19 +1,30 @@
 package com.farmacia.negocio.entidade;
 
-public class ItemVenda {
+import com.farmacia.negocio.excecao.DadosInvalidosException;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+/**
+ * Representa uma única linha em uma Venda.
+ * Esta classe conecta um Produto a uma Venda, armazenando a quantidade vendida
+ * e o preço unitário no momento da transação para garantir a integridade histórica dos dados.
+ * É um objeto imutável por design: uma vez criado, não deve ser alterado.
+ */
+public class ItemVenda implements Serializable {
     private final Produto produto;
     private final int quantidade;
     private final double precoUnitarioGravado;
 
     public ItemVenda(Produto produto, int quantidade, double precoUnitarioGravado) {
         if (produto == null) {
-            //O item tem que ter um produto
+            throw new DadosInvalidosException("O produto de um item de venda não pode ser nulo.");
         }
         if (quantidade <= 0) {
-            //O item tem que ter uma quantidade valida
+            throw new DadosInvalidosException("A quantidade de um item de venda deve ser positiva.");
         }
         if (precoUnitarioGravado < 0) {
-            //O preço do produto tem que ser valido
+            throw new DadosInvalidosException("O preço de um item de venda não pode ser negativo.");
         }
 
         this.produto = produto;
@@ -21,6 +32,9 @@ public class ItemVenda {
         this.precoUnitarioGravado = precoUnitarioGravado;
     }
 
+    /**
+     * Calcula o valor subtotal deste item.
+     */
     public double calcularSubtotal() {
         return this.quantidade * this.precoUnitarioGravado;
     }
@@ -43,5 +57,20 @@ public class ItemVenda {
                 " | Qtd: " + quantidade +
                 " | Preço Un.: R$" + String.format("%.2f", precoUnitarioGravado) +
                 " | Subtotal: R$" + String.format("%.2f", calcularSubtotal());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemVenda itemVenda = (ItemVenda) o;
+        return quantidade == itemVenda.quantidade &&
+                Double.compare(itemVenda.precoUnitarioGravado, precoUnitarioGravado) == 0 &&
+                Objects.equals(produto, itemVenda.produto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(produto, quantidade, precoUnitarioGravado);
     }
 }
