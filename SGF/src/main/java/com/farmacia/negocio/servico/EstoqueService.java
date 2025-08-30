@@ -4,6 +4,8 @@ import com.farmacia.negocio.entidade.Lote;
 import com.farmacia.negocio.entidade.Produto;
 import com.farmacia.dados.repositorio.IRepositorioEstoque;
 import com.farmacia.dados.repositorio.IRepositorioProdutos;
+import com.farmacia.negocio.excecao.DadosInvalidosException;
+import com.farmacia.negocio.excecao.estoque.LoteNaoEncontradoException;
 import com.farmacia.negocio.excecao.produto.ProdutoNaoEncontradoException;
 
 import java.time.LocalDate;
@@ -19,6 +21,20 @@ public class EstoqueService {
     public EstoqueService(IRepositorioEstoque loteRepo, IRepositorioProdutos produtoRepo) {
         this.loteRepository = loteRepo;
         this.produtoRepository = produtoRepo;
+    }
+
+    /**
+     * Adiciona um novo lote de um produto existente ao estoque.
+     */
+    public void adicionarLote(int idProduto, int quantidade, LocalDate dataValidade) {
+        Produto produto = produtoRepository.buscarPorId(idProduto);
+        if (produto == null) {
+            throw new ProdutoNaoEncontradoException(idProduto);
+        }
+
+        Lote novoLote = new Lote(produto, quantidade, dataValidade);
+
+        loteRepository.salvar(novoLote);
     }
 
     public String consultarStatusDetalhadoProduto(int idProduto) {
@@ -58,6 +74,24 @@ public class EstoqueService {
         relatorio.append("---------------------------\n");
 
         return relatorio.toString();
+    }
+
+    /**
+     * Permite que um Supervisor ajuste manualmente a quantidade de um lote específico.
+     */
+    public void ajustarQuantidadeLote(int idLote, int novaQuantidade) {
+        if (novaQuantidade < 0) {
+            throw new DadosInvalidosException("A quantidade do lote não pode ser negativa.");
+        }
+
+        Lote lote = loteRepository.buscarPorId(idLote);
+
+        if (lote == null) {
+            throw new LoteNaoEncontradoException(idLote);
+        }
+
+        loteRepository.atualizar(lote);
+        System.out.println("Estoque do lote " + idLote + " ajustado para " + novaQuantidade);
     }
 
     /**

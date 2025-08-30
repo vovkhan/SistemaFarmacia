@@ -65,6 +65,13 @@ public class Lote implements Serializable {
         return quantidade;
     }
 
+    public void setQuantidade(int quantidade) {
+        if (quantidade < 0) {
+            throw new IllegalArgumentException("A quantidade não pode ser negativa.");
+        }
+        this.quantidade = quantidade;
+    }
+
     public LocalDate getDataValidade() {
         return dataValidade;
     }

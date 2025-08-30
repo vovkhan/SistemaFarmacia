@@ -4,6 +4,8 @@ import com.farmacia.dados.repositorio.IRepositorioEstoque;
 import com.farmacia.negocio.entidade.Lote;
 import com.farmacia.negocio.entidade.Produto;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +51,7 @@ public class RepositorioEstoqueArquivo implements IRepositorioEstoque {
     }
 
     private void salvarNoArquivo() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(NOME_ARQUIVO))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(NOME_ARQUIVO)))) {
             oos.writeObject(this.lotes);
         } catch (IOException e) {
             System.err.println("Erro ao salvar lotes: " + e.getMessage());
@@ -61,7 +63,7 @@ public class RepositorioEstoqueArquivo implements IRepositorioEstoque {
         File arquivo = new File(NOME_ARQUIVO);
         if (!arquivo.exists()) return;
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(NOME_ARQUIVO))) {
+        try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(NOME_ARQUIVO)))) {
             this.lotes = (ArrayList<Lote>) ois.readObject();
             atualizarProximoId();
         } catch (IOException | ClassNotFoundException e) {

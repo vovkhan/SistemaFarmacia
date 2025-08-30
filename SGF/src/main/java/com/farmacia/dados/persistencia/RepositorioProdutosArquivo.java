@@ -4,6 +4,8 @@ import com.farmacia.negocio.entidade.Produto;
 import com.farmacia.dados.repositorio.IRepositorioProdutos;
 import com.farmacia.negocio.servico.GeradorDeCodigoService;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class RepositorioProdutosArquivo implements IRepositorioProdutos {
     }
 
     private void salvarNoArquivo() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(NOME_ARQUIVO))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(NOME_ARQUIVO)))) {
             oos.writeObject(this.produtos);
         } catch (IOException e) {
             System.err.println("Erro ao salvar produtos: " + e.getMessage());
@@ -79,7 +81,7 @@ public class RepositorioProdutosArquivo implements IRepositorioProdutos {
         File arquivo = new File(NOME_ARQUIVO);
         if (!arquivo.exists()) return;
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(NOME_ARQUIVO))) {
+        try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(NOME_ARQUIVO)))) {
             this.produtos = (ArrayList<Produto>) ois.readObject();
             atualizarProximoId();
         } catch (IOException | ClassNotFoundException e) {

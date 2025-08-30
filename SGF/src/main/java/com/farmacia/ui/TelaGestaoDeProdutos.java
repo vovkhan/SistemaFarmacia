@@ -3,6 +3,7 @@ package com.farmacia.ui;
 import com.farmacia.fachada.FachadaFarmacia;
 import com.farmacia.negocio.entidade.*;
 import com.farmacia.negocio.excecao.*;
+import com.farmacia.negocio.excecao.estoque.LoteNaoEncontradoException;
 import com.farmacia.negocio.excecao.produto.ProdutoComEstoqueException;
 import com.farmacia.negocio.excecao.produto.ProdutoNaoEncontradoException;
 
@@ -12,10 +13,12 @@ import java.util.Scanner;
 public class TelaGestaoDeProdutos {
     private final Scanner sc;
     private final TelaCadastroProduto telaCadastroProduto;
+    private final TelaCadastroLote telaCadastroLote;
 
-    public TelaGestaoDeProdutos(Scanner sc, TelaCadastroProduto telaCadastroProduto) {
+    public TelaGestaoDeProdutos(Scanner sc, TelaCadastroProduto telaCadastroProduto, TelaCadastroLote telaCadastroLote) {
         this.sc = sc;
         this.telaCadastroProduto = telaCadastroProduto;
+        this.telaCadastroLote = telaCadastroLote;
     }
 
     public void executar(FachadaFarmacia fachada, Supervisor supervisorLogado) {
@@ -25,7 +28,11 @@ public class TelaGestaoDeProdutos {
             System.out.println("1. Adicionar Novo Produto ao Catálogo");
             System.out.println("2. Remover Produto do Catálogo");
             System.out.println("3. Consultar Detalhes de um Produto");
-            System.out.println("4. Ver Alertas de Estoque e Vencimento");
+            System.out.println("4. Atualizar Dados de Produto");
+            System.out.println("5. Ver Alertas de Estoque e Vencimento");
+            System.out.println("6. Adicionar Lote no Estoque");
+            System.out.println("7. Ajustar Estoque de um Lote Específico");
+
             System.out.println("0. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
 
@@ -43,7 +50,16 @@ public class TelaGestaoDeProdutos {
                     consultarProduto(fachada);
                     break;
                 case 4:
+                    atualizarProduto(fachada, supervisorLogado);
+                    break;
+                case 5:
                     verAlertas(fachada, supervisorLogado);
+                    break;
+                case 6:
+                    telaCadastroLote.executar(fachada, supervisorLogado);
+                    break;
+                case 7:
+                    ajustarEstoqueLote(fachada, supervisorLogado);
                     break;
                 case 0:
                     sair = true;
@@ -73,16 +89,53 @@ public class TelaGestaoDeProdutos {
         }
     }
 
-    private void removerProduto(FachadaFarmacia facade, Supervisor supervisorLogado) {
+    private void removerProduto(FachadaFarmacia fachada, Supervisor supervisorLogado) {
         System.out.println("--- Remover Produto ---");
         try {
             System.out.print("Digite o ID do produto a ser removido: ");
             int id = sc.nextInt();
             sc.nextLine();
-            facade.removerProduto(id, supervisorLogado);
+            fachada.removerProduto(id, supervisorLogado);
             System.out.println("\nPRODUTO REMOVIDO COM SUCESSO!");
         } catch (ProdutoNaoEncontradoException | ProdutoComEstoqueException e) {
             System.err.println("\nERRO AO REMOVER: " + e.getMessage());
+        }
+    }
+
+    private void ajustarEstoqueLote(FachadaFarmacia fachada, Supervisor supervisorLogado) {
+        System.out.println("\n--- Ajuste Manual de Estoque de Lote ---");
+        try {
+            System.out.print("Primeiro, digite o ID do produto para ver seus lotes: ");
+            int idProduto = sc.nextInt();
+            sc.nextLine();
+
+            String detalhes = fachada.getStatusDetalhadoProduto(idProduto);
+            System.out.println(detalhes);
+
+            System.out.print("Agora, digite o ID do Lote que deseja ajustar: ");
+            int idLote = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Digite a NOVA quantidade de itens para este lote: ");
+            int novaQuantidade = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Tem certeza que deseja alterar a quantidade do Lote " + idLote +
+                    " para " + novaQuantidade + " unidades? (S/N): ");
+            String confirmacao = sc.nextLine();
+
+            if ("S".equalsIgnoreCase(confirmacao)) {
+                fachada.ajustarQuantidadeLote(idLote, novaQuantidade, supervisorLogado);
+                System.out.println("\nEstoque do lote ajustado com sucesso!");
+            } else {
+                System.out.println("\nOperação cancelada.");
+            }
+
+        } catch (ProdutoNaoEncontradoException | LoteNaoEncontradoException | DadosInvalidosException e) {
+            System.err.println("\nERRO: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("\nERRO: Entrada de dados inválida. Tente novamente.");
+            if (sc.hasNextLine()) sc.nextLine();
         }
     }
 

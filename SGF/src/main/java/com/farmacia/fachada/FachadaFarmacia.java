@@ -125,12 +125,26 @@ public class FachadaFarmacia {
         produtoService.atualizarDadosProduto(idProduto, novoNome, novoFabricante, preco, estMin);
     }
 
+    public void adicionarLote(int idProduto, int quantidade, LocalDate dataValidade, Funcionario funcionarioLogado) {
+        if (!(funcionarioLogado instanceof Supervisor)) {
+            throw new AcessoNegadoException("Supervisores ou Gerentes");
+        }
+        estoqueService.adicionarLote(idProduto, quantidade, dataValidade);
+    }
+
     public String getStatusDetalhadoProduto(int idProduto) {
         return estoqueService.consultarStatusDetalhadoProduto(idProduto);
     }
 
     public List<Produto> listarProdutos() {
         return produtoRepository.listarTodos();
+    }
+
+    public void ajustarQuantidadeLote(int idLote, int novaQuantidade, Funcionario funcionarioLogado) {
+        if (!(funcionarioLogado instanceof Supervisor)) {
+            throw new AcessoNegadoException("Supervisores");
+        }
+        estoqueService.ajustarQuantidadeLote(idLote, novaQuantidade);
     }
 
     public List<String> verificarAlertasDeEstoque(Funcionario funcionarioLogado) {
