@@ -14,10 +14,12 @@ public class TelaPrincipal {
 
     private final TelaVenda telaVenda;
     private final TelaCadastroCliente telaCadastroCliente;
+    private final TelaCadastroLote telaCadastroLote;
     private final TelaGestaoDeProdutos telaGestaoDeProdutos;
     private final TelaCadastroProduto telaCadastroProduto;
     private final TelaRelatorios telaRelatorios;
     private final TelaReembolso telaReembolso;
+
 
     public TelaPrincipal() {
         this.fachada = new FachadaFarmacia();
@@ -25,16 +27,17 @@ public class TelaPrincipal {
 
         this.telaCadastroCliente = new TelaCadastroCliente(sc);
         this.telaVenda = new TelaVenda(sc, telaCadastroCliente);
+        this.telaCadastroLote = new TelaCadastroLote(sc);
         this.telaCadastroProduto = new TelaCadastroProduto(sc);
-        this.telaGestaoDeProdutos = new TelaGestaoDeProdutos(sc, telaCadastroProduto);
+        this.telaGestaoDeProdutos = new TelaGestaoDeProdutos(sc, telaCadastroProduto, telaCadastroLote);
         this.telaRelatorios = new TelaRelatorios(sc);
         this.telaReembolso = new TelaReembolso(sc);
+
     }
 
     public void iniciar() {
         System.out.println("--- BEM-VINDO AO SISTEMA DE GESTÃO DE FARMÁCIA ---");
 
-        // 1. LÓGICA DE LOGIN
         Funcionario funcionarioLogado = null;
         while (funcionarioLogado == null) {
             try {

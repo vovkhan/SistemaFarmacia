@@ -56,9 +56,11 @@ public class Venda implements Serializable {
     }
 
     public int calcularTotalPontosGerados() {
-        return this.itens.stream()
-                .mapToInt(item -> item.getProduto().calcularPontosGerados(item.getQuantidade()))
-                .sum();
+        int totalPontos = 0;
+        for (ItemVenda item : this.itens) {
+            totalPontos += item.getProduto().calcularPontosGerados(item.getQuantidade());
+        }
+        return totalPontos;
     }
 
     public void aplicarDescontoFidelidade(int pontos) {
