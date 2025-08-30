@@ -52,9 +52,9 @@ public class TelaPrincipal {
         if (funcionarioLogado instanceof Atendente) {
             menuAtendente((Atendente) funcionarioLogado);
         } else if (funcionarioLogado instanceof Supervisor) {
-            // menuSupervisor((Supervisor) funcionarioLogado);
+            menuSupervisor((Supervisor) funcionarioLogado);
         } else if (funcionarioLogado instanceof Gerente) {
-            // menuGerente((Gerente) funcionarioLogado);
+            menuGerente((Gerente) funcionarioLogado);
         }
 
         System.out.println("\n--- FIM DA SESSÃO ---");
