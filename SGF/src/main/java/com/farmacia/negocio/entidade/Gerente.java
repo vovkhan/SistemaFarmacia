@@ -1,6 +1,6 @@
 package com.farmacia.negocio.entidade;
 
-public class Gerente extends Funcionario{
+public class Gerente extends Funcionario {
 
     public Gerente(String nome, String cpf, String matricula, String login, String senha) {
         super(nome, cpf, matricula, login, senha);
@@ -11,17 +11,15 @@ public class Gerente extends Funcionario{
         return "Gerente Administrativo";
     }
 
-    //O resto dos métodos do Gerente
+    @Override
+    public String getResumoDeDesempenho() {
+        return "Métricas de desempenho gerencial não são aplicáveis neste relatório.";
+    }
+
     public String contratarFuncionario(Funcionario f){
         return "Funcionário"+ f.getNome()+ "Contratado!";
+        //Talvez tenha?
     }
 
 
-    public String definirMetaVendas(Produto produto, int numeroVendas){
-        return "Meta de vendas definida: " + numeroVendas + " unidades do produto " + produto.getNome();
-    }
-
-    public String aprovarCompraProdutos(Produto produto, int quantidade, int valorCompra){
-        return "Compra aprovada: " + quantidade + " unidades de " + produto.getNome() + " por R$ " + valorCompra;
-    }
 }

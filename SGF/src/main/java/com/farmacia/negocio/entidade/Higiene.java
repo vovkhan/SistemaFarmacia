@@ -1,6 +1,6 @@
 package com.farmacia.negocio.entidade;
 
-public class Higiene extends Produto {
+public class Higiene extends Produto{
     private final boolean ehInfantil;
 
     public Higiene(String nome, double preco, String fabricante, int estoqueMinimo, boolean ehInfantil) {
@@ -25,7 +25,6 @@ public class Higiene extends Produto {
 
     @Override
     public String toString() {
-        return super.toString() + "\n | Categoria: Higiene" + (ehInfantil ? " (Infantil)" : "");
-
+        return super.toString() + " | Categoria: Higiene" + (ehInfantil ? " (Infantil)" : "");
     }
 }

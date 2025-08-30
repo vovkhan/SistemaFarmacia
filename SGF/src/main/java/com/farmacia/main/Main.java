@@ -1,12 +1,9 @@
 package com.farmacia.main;
 
+import com.farmacia.ui.TelaPrincipal;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hoi hoi hoi");
-        int i = 2;
-        int j = 2;
-
-        System.out.println(i+j);
-
+        new TelaPrincipal().iniciar();
     }
 }

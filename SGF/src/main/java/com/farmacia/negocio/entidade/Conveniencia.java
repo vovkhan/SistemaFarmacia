@@ -19,7 +19,7 @@ public class Conveniencia extends Produto {
         return pontosBase * quantidadeVendida;
     }
 
-    public boolean isEhAlimento() {
+    public boolean isAlimento() {
         return ehAlimento;
     }
 
