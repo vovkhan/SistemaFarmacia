@@ -187,4 +187,9 @@ public class FachadaFarmacia {
     public Produto buscarProdutoPorCodigo(String codigo) {
         return produtoRepository.buscarPorCodigo(codigo);
     }
+
+    public Produto buscarProdutoPorId(int id) {
+        return produtoRepository.buscarPorId(id);
+    }
+
 }

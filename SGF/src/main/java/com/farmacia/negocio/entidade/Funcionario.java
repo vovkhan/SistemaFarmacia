@@ -14,12 +14,11 @@ public abstract class Funcionario implements Serializable {
     private String codigo;
     private String nome;
     private String cpf;
-    private String matricula;
     private String login;
     private String senha;
     private boolean ativo;
 
-    public Funcionario(String nome, String cpf, String matricula, String login, String senha) {
+    public Funcionario(String nome, String cpf, String login, String senha) {
         if (nome == null || nome.trim().isEmpty() || cpf == null || cpf.trim().isEmpty()) {
             throw new DadosInvalidosException("Nome e CPF são obrigatórios para o cadastro de funcionario.");
         }
@@ -34,7 +33,6 @@ public abstract class Funcionario implements Serializable {
         }
         this.nome = nome;
         this.cpf = cpf;
-        this.matricula = matricula;
         this.login = login;
         this.senha = senha;
         this.ativo = true;
@@ -108,12 +106,12 @@ public abstract class Funcionario implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Funcionario that = (Funcionario) o;
-        return Objects.equals(cpf, that.cpf) && Objects.equals(matricula, that.matricula);
+        return Objects.equals(cpf, that.cpf);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf, matricula);
+        return Objects.hash(cpf);
     }
 
 }

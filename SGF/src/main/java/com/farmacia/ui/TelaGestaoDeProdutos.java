@@ -70,6 +70,18 @@ public class TelaGestaoDeProdutos {
         }
     }
 
+    private void listar(FachadaFarmacia fachada) {
+        System.out.println("\n--- Lista de Produtos ---");
+        List<Produto> produtos = fachada.listarProdutos();
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        } else {
+            for (Produto produto : produtos) {
+                System.out.println(produto.toString());
+            }
+        }
+    }
+
     private void atualizarProduto(FachadaFarmacia fachada, Supervisor supervisorLogado) {
         System.out.println("--- Atualizar Dados de Produto ---");
         try {
@@ -92,10 +104,12 @@ public class TelaGestaoDeProdutos {
     private void removerProduto(FachadaFarmacia fachada, Supervisor supervisorLogado) {
         System.out.println("--- Remover Produto ---");
         try {
-            System.out.print("Digite o ID do produto a ser removido: ");
-            int id = sc.nextInt();
+            System.out.print("Digite o código do produto a ser removido: ");
+            String codigo = sc.nextLine();
             sc.nextLine();
-            fachada.removerProduto(id, supervisorLogado);
+            Produto p = fachada.buscarProdutoPorCodigo(codigo);
+
+            fachada.removerProduto(p.getId(), supervisorLogado);
             System.out.println("\nPRODUTO REMOVIDO COM SUCESSO!");
         } catch (ProdutoNaoEncontradoException | ProdutoComEstoqueException e) {
             System.err.println("\nERRO AO REMOVER: " + e.getMessage());
@@ -105,11 +119,12 @@ public class TelaGestaoDeProdutos {
     private void ajustarEstoqueLote(FachadaFarmacia fachada, Supervisor supervisorLogado) {
         System.out.println("\n--- Ajuste Manual de Estoque de Lote ---");
         try {
-            System.out.print("Primeiro, digite o ID do produto para ver seus lotes: ");
-            int idProduto = sc.nextInt();
+            System.out.print("Primeiro, digite o código do produto para ver seus lotes: ");
+            String codigo = sc.nextLine();
             sc.nextLine();
+            Produto p = fachada.buscarProdutoPorCodigo(codigo);
 
-            String detalhes = fachada.getStatusDetalhadoProduto(idProduto);
+            String detalhes = fachada.getStatusDetalhadoProduto(p.getId());
             System.out.println(detalhes);
 
             System.out.print("Agora, digite o ID do Lote que deseja ajustar: ");
@@ -142,10 +157,11 @@ public class TelaGestaoDeProdutos {
     private void consultarProduto(FachadaFarmacia fachada) {
         System.out.println("--- Consultar Produto Detalhado ---");
         try {
-            System.out.print("Digite o ID do produto: ");
-            int id = sc.nextInt();
+            System.out.print("Digite o código do produto: ");
+            String codigo = sc.nextLine();
             sc.nextLine();
-            String detalhes = fachada.getStatusDetalhadoProduto(id);
+            Produto p = fachada.buscarProdutoPorCodigo(codigo);
+            String detalhes = fachada.getStatusDetalhadoProduto(p.getId());
             System.out.println(detalhes);
         } catch (ProdutoNaoEncontradoException e) {
             System.err.println("\nERRO: " + e.getMessage());
