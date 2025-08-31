@@ -93,9 +93,9 @@ public class RepositorioFuncionariosArquivo implements IRepositorioFuncionarios 
     private void criarUsuariosPadrao() {
         System.out.println("[DEBUG] Repositório de funcionários vazio. Criando usuários padrão...");
 
-        Funcionario atendente = new Atendente("Zero Uno Atendente", "11111111111", "AT01", "atendente", "123");
-        Funcionario supervisor = new Supervisor("Gui Supervisor", "22222222222", "SUP01", "supervisor", "123");
-        Funcionario gerente = new Gerente("Guilherme Gerente", "33333333333", "GER01", "gerente", "123");
+        Funcionario atendente = new Atendente("Zero Uno Atendente", "11111111111", "atendente", "123");
+        Funcionario supervisor = new Supervisor("Gui Supervisor", "22222222222", "supervisor", "123");
+        Funcionario gerente = new Gerente("Guilherme Gerente", "33333333333", "gerente", "123");
         this.salvar(atendente);
         this.salvar(supervisor);
         this.salvar(gerente);

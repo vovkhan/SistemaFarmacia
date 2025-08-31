@@ -19,6 +19,7 @@ public class TelaPrincipal {
     private final TelaCadastroProduto telaCadastroProduto;
     private final TelaRelatorios telaRelatorios;
     private final TelaReembolso telaReembolso;
+    private final TelaConsultaVendas telaConsultaVendas;
 
 
     public TelaPrincipal() {
@@ -32,6 +33,7 @@ public class TelaPrincipal {
         this.telaGestaoDeProdutos = new TelaGestaoDeProdutos(sc, telaCadastroProduto, telaCadastroLote);
         this.telaRelatorios = new TelaRelatorios(sc);
         this.telaReembolso = new TelaReembolso(sc);
+        this.telaConsultaVendas = new TelaConsultaVendas(sc);
 
     }
 
@@ -70,6 +72,7 @@ public class TelaPrincipal {
             System.out.println("1. Processar Nova Venda");
             System.out.println("2. Gestão de Clientes");
             System.out.println("3. Processar Reembolso");
+            System.out.println("4. Consultar Histórico de Vendas");
             System.out.println("0. Sair (Logout)");
             System.out.print("Escolha uma opção: ");
 
@@ -87,6 +90,8 @@ public class TelaPrincipal {
                     case 3:
                         telaReembolso.executar(fachada, atendente);
                         break;
+                    case 4:
+                        telaConsultaVendas.executar(fachada, atendente);
                     case 0:
                         sair = true;
                         break;

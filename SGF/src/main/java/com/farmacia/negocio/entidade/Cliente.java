@@ -38,6 +38,9 @@ public class Cliente implements Serializable {
         if (email != null && !email.contains("@")) {
             throw new DadosInvalidosException("O formato do email parece inválido.");
         }
+        if (telefone != null && !telefone.matches("^\\d{9}$")) {
+           throw new DadosInvalidosException("O campo 'Telefone' deve conter exatamente 9 dígitos numéricos, sem DDD.");
+        }
 
         this.nome = nome;
         this.cpf = cpf;

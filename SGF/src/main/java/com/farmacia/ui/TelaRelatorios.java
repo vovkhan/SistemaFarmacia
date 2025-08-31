@@ -23,7 +23,7 @@ public class TelaRelatorios {
             System.out.println("1. Relatório de Produtos Mais Vendidos");
             System.out.println("2. Relatório de Produtos Menos Vendidos");
             System.out.println("3. Relatório de Desempenho de Funcionários");
-            System.out.println("3. Relatório de Faturamento por Período");
+            System.out.println("4. Relatório de Faturamento por Período");
             System.out.println("0. Voltar");
             System.out.print("Escolha uma opção: ");
             int opcao = sc.nextInt();

@@ -2,8 +2,8 @@ package com.farmacia.negocio.entidade;
 
 public class Gerente extends Funcionario {
 
-    public Gerente(String nome, String cpf, String matricula, String login, String senha) {
-        super(nome, cpf, matricula, login, senha);
+    public Gerente(String nome, String cpf, String login, String senha) {
+        super(nome, cpf, login, senha);
     }
 
     @Override
