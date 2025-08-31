@@ -150,7 +150,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente [ID=" + id + ", Nome='" + nome + "', CPF='" + cpf + "', Email='" + email + "']";
+        return "Cliente ID = " + id + " | Nome = " + nome + " | CPF = " + cpf + " | Email = "  + email + " | Telefone = " + telefone + " | PontosFidelidade = " + pontosFidelidade;
     }
 
     @Override

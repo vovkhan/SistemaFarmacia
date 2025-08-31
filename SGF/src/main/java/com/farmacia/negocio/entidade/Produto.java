@@ -86,7 +86,7 @@ public abstract class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return "Produto [ID=" + id + ", Codigo='" + codigo + "', Nome='" + nome + "']";
+        return "Produto ID = " + id + " | Codigo = " + codigo + " | Nome = " + nome;
     }
 
     @Override

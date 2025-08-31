@@ -62,7 +62,6 @@ public class RelatorioService {
      * Gera um relatório com os N produtos menos vendidos.
      */
     public List<String> gerarRelatorioProdutosMenosVendidos(int topN) {
-        // A lógica de contagem é exatamente a mesma
         List<Venda> todasAsVendas = vendaRepository.listarTodos();
         ArrayList<ContadorProduto> contagem = new ArrayList<>();
         for (Venda venda : todasAsVendas) {
