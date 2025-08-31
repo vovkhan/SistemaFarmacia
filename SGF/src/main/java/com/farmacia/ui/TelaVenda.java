@@ -65,12 +65,34 @@ public class TelaVenda {
 
             try {
                 Produto produto = fachada.buscarProdutoPorCodigo(codigo);
-                System.out.print("Digite a quantidade: ");
-                int qtd = sc.nextInt();
-                sc.nextLine();
+                boolean podeAdicionar = true;
 
-                carrinho.add(new ItemVenda(produto, qtd, produto.getPreco()));
-                System.out.println("'" + produto.getNome() + "' adicionado ao carrinho.");
+                if (produto instanceof Medicamento) {
+                    Medicamento medicamento = (Medicamento) produto;
+
+                    if (medicamento.isNecessitaReceita()) {
+                        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("!! ALERTA: Este medicamento exige receita médica. !!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.print("A receita foi apresentada e verificada? (S/N): ");
+                        String confirmacao = sc.nextLine();
+
+                        if (!"S".equalsIgnoreCase(confirmacao)) {
+                            podeAdicionar = false;
+                            System.out.println("Item não adicionado ao carrinho. Operação cancelada pelo atendente.");
+                        }
+                    }
+                }
+
+                if (podeAdicionar) {
+                    System.out.print("Digite a quantidade: ");
+                    int qtd = sc.nextInt();
+                    sc.nextLine();
+
+                    carrinho.add(new ItemVenda(produto, qtd, produto.getPreco()));
+                    System.out.println("'" + produto.getNome() + "' adicionado ao carrinho.");
+                }
+
             } catch (ProdutoNaoEncontradoException e) {
                 System.err.println("ERRO: " + e.getMessage());
             } catch (Exception e) {
