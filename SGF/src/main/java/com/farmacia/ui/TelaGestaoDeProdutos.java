@@ -32,6 +32,7 @@ public class TelaGestaoDeProdutos {
             System.out.println("5. Ver Alertas de Estoque e Vencimento");
             System.out.println("6. Adicionar Lote no Estoque");
             System.out.println("7. Ajustar Estoque de um Lote Específico");
+            System.out.println("8. Listar Produtos");
 
             System.out.println("0. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
@@ -61,6 +62,8 @@ public class TelaGestaoDeProdutos {
                 case 7:
                     ajustarEstoqueLote(fachada, supervisorLogado);
                     break;
+                case 8:
+                    listar(fachada);
                 case 0:
                     sair = true;
                     break;

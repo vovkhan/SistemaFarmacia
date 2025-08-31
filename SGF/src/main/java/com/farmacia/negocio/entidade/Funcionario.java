@@ -98,7 +98,7 @@ public abstract class Funcionario implements Serializable {
 
     @Override
     public String toString() {
-        return getNomeCargo() + " [ID=" + id + ", Nome='" + nome + "', Codigo='" + codigo + "']";
+        return getNomeCargo() + " ID = " + id + "| Nome = " + nome + "| Codigo = " + codigo;
     }
 
     @Override

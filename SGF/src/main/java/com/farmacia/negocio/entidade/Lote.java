@@ -82,7 +82,7 @@ public class Lote implements Serializable {
 
     @Override
     public String toString() {
-        return "Lote [ID=" + id + ", Produto='" + produto.getNome() + "', Qtd=" + quantidade + ", Val=" + dataValidade + "]";
+        return "Lote ID = " + id + "| Produto = " + produto.getNome() + "| Qtd = " + quantidade + "| Val = " + dataValidade;
     }
 
     @Override
