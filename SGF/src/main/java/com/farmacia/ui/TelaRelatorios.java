@@ -16,6 +16,9 @@ public class TelaRelatorios {
         this.sc = sc;
     }
 
+    /**
+     * Executa a tela de Relatórios.
+     */
     public void executar(FachadaFarmacia fachada, Gerente gerenteLogado) {
         boolean sair = false;
         while(!sair) {
