@@ -5,12 +5,12 @@ Funcionários padrões do sistema:
 
 [Atendente]
 login: atendente
-senha: 123
+| senha: 123
 
 [Supervisor]
 login: supervisor
-senha: 123
+| senha: 123
 
 [Gerente]
 login: gerente
-senha: 123
+| senha: 123
