@@ -19,6 +19,9 @@ public class TelaCadastroLote {
         this.sc = sc;
     }
 
+    /**
+     * Executa o cadastro de um lote
+     */
     public void executar(FachadaFarmacia fachada, Supervisor supervisorLogado) {
         System.out.println("\n--- Adicionar Lote ao Estoque (Entrada de Mercadoria) ---");
         try {

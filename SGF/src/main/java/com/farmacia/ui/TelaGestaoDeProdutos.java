@@ -14,13 +14,18 @@ public class TelaGestaoDeProdutos {
     private final Scanner sc;
     private final TelaCadastroProduto telaCadastroProduto;
     private final TelaCadastroLote telaCadastroLote;
+    private final TelaConsultaProduto telaConsultaProduto;
 
-    public TelaGestaoDeProdutos(Scanner sc, TelaCadastroProduto telaCadastroProduto, TelaCadastroLote telaCadastroLote) {
+    public TelaGestaoDeProdutos(Scanner sc, TelaCadastroProduto telaCadastroProduto, TelaCadastroLote telaCadastroLote, TelaConsultaProduto telaConsultaProduto) {
         this.sc = sc;
         this.telaCadastroProduto = telaCadastroProduto;
         this.telaCadastroLote = telaCadastroLote;
+        this.telaConsultaProduto = telaConsultaProduto;
     }
 
+    /**
+     * Executa a tela de gestão de produtos.
+     */
     public void executar(FachadaFarmacia fachada, Supervisor supervisorLogado) {
         boolean sair = false;
         while (!sair) {
@@ -48,7 +53,7 @@ public class TelaGestaoDeProdutos {
                     removerProduto(fachada, supervisorLogado);
                     break;
                 case 3:
-                    consultarProduto(fachada);
+                    telaConsultaProduto.executar(fachada);
                     break;
                 case 4:
                     atualizarProduto(fachada, supervisorLogado);
@@ -154,20 +159,6 @@ public class TelaGestaoDeProdutos {
         } catch (Exception e) {
             System.err.println("\nERRO: Entrada de dados inválida. Tente novamente.");
             if (sc.hasNextLine()) sc.nextLine();
-        }
-    }
-
-    private void consultarProduto(FachadaFarmacia fachada) {
-        System.out.println("--- Consultar Produto Detalhado ---");
-        try {
-            System.out.print("Digite o código do produto: ");
-            String codigo = sc.nextLine();
-            sc.nextLine();
-            Produto p = fachada.buscarProdutoPorCodigo(codigo);
-            String detalhes = fachada.getStatusDetalhadoProduto(p.getId());
-            System.out.println(detalhes);
-        } catch (ProdutoNaoEncontradoException e) {
-            System.err.println("\nERRO: " + e.getMessage());
         }
     }
 
