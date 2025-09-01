@@ -77,6 +77,9 @@ public abstract class Funcionario implements Serializable {
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new DadosInvalidosException("O nome do funcionário não pode ser vazio.");
+        }
         this.nome = nome;
     }
 
@@ -89,6 +92,9 @@ public abstract class Funcionario implements Serializable {
     }
 
     public void setLogin(String login) {
+        if (login == null || login.trim().isEmpty()) {
+            throw new DadosInvalidosException("O login do funcionário não pode ser vazio.");
+        }
         this.login = login;
     }
 

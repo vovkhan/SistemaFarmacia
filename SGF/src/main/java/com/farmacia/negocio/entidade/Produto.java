@@ -57,6 +57,9 @@ public abstract class Produto implements Serializable {
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new DadosInvalidosException("O nome do produto não pode ser vazio.");
+        }
         this.nome = nome;
     }
 
@@ -65,6 +68,9 @@ public abstract class Produto implements Serializable {
     }
 
     public void setPreco(double preco) {
+        if (preco < 0) {
+            throw new DadosInvalidosException("O preço do produto не pode ser negativo.");
+        }
         this.preco = preco;
     }
 
@@ -73,6 +79,9 @@ public abstract class Produto implements Serializable {
     }
 
     public void setFabricante(String fabricante) {
+        if (fabricante == null || fabricante.trim().isEmpty()) {
+            throw new DadosInvalidosException("O fabricante do produto não pode ser vazio.");
+        }
         this.fabricante = fabricante;
     }
 
@@ -81,6 +90,9 @@ public abstract class Produto implements Serializable {
     }
 
     public void setEstoqueMinimo(int estoqueMinimo) {
+        if (estoqueMinimo < 0) {
+            throw new DadosInvalidosException("O estoque mínimo não pode ser negativo.");
+        }
         this.estoqueMinimo = estoqueMinimo;
     }
 
