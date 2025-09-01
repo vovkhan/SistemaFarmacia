@@ -16,10 +16,4 @@ public class Gerente extends Funcionario {
         return "Métricas de desempenho gerencial não são aplicáveis neste relatório.";
     }
 
-    public String contratarFuncionario(Funcionario f){
-        return "Funcionário"+ f.getNome()+ "Contratado!";
-        //Talvez tenha?
-    }
-
-
 }
