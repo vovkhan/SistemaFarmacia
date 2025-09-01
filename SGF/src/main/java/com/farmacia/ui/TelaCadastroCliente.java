@@ -72,8 +72,6 @@ public class TelaCadastroCliente {
             Cliente novoCliente = new Cliente(nome, cpf, email, telefone);
             fachada.cadastrarNovoCliente(novoCliente, atendenteLogado);
             System.out.println("\nCLIENTE CADASTRADO COM SUCESSO!");
-
-            // Retorna o objeto do cliente recém-criado
             return novoCliente;
 
         } catch (DadosInvalidosException | CpfJaCadastradoException e) {

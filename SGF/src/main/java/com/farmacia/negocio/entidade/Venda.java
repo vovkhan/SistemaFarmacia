@@ -128,7 +128,7 @@ public class Venda implements Serializable {
 
     @Override
     public String toString() {
-        return "Venda [ID=" + id + ", Codigo='" + codigo + "', Cliente='" + cliente.getNome() + "', Itens=" + itens.size() + "]";
+        return "Venda ID = " + id + "| Codigo = " + codigo + "| Cliente = " + cliente.getNome() + "| Itens = " + itens.size();
     }
 
     @Override
