@@ -20,6 +20,9 @@ public class TelaConsultaVendas {
         this.sc = sc;
     }
 
+    /**
+     * Executa a consulta de vendas.
+     */
     public void executar(FachadaFarmacia fachada, Atendente atendenteLogado) {
         System.out.println("\n--- Consultar Histórico de Vendas ---");
 

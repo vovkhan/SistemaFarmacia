@@ -13,6 +13,9 @@ public class TelaReembolso {
     private final Scanner scanner;
     public TelaReembolso(Scanner scanner) { this.scanner = scanner; }
 
+    /**
+     * Executa o processo de reembolso.
+     */
     public void executar(FachadaFarmacia fachada, Atendente atendenteLogado) {
         System.out.println("\n--- PROCESSAR REEMBOLSO ---");
         try {

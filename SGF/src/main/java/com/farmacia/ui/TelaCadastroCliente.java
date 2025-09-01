@@ -18,6 +18,9 @@ public class TelaCadastroCliente {
         this.sc = sc;
     }
 
+    /**
+     * Executa a tela de gestão de clientes
+     */
     public void executar(FachadaFarmacia fachada, Atendente atendenteLogado) {
         boolean sair = false;
         while (!sair) {

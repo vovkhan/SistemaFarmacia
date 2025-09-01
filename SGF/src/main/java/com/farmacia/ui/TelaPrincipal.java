@@ -20,6 +20,7 @@ public class TelaPrincipal {
     private final TelaRelatorios telaRelatorios;
     private final TelaReembolso telaReembolso;
     private final TelaConsultaVendas telaConsultaVendas;
+    private final TelaConsultaProduto telaConsultaProduto;
 
 
     public TelaPrincipal() {
@@ -30,7 +31,8 @@ public class TelaPrincipal {
         this.telaVenda = new TelaVenda(sc, telaCadastroCliente);
         this.telaCadastroLote = new TelaCadastroLote(sc);
         this.telaCadastroProduto = new TelaCadastroProduto(sc);
-        this.telaGestaoDeProdutos = new TelaGestaoDeProdutos(sc, telaCadastroProduto, telaCadastroLote);
+        this.telaConsultaProduto = new TelaConsultaProduto(sc);
+        this.telaGestaoDeProdutos = new TelaGestaoDeProdutos(sc, telaCadastroProduto, telaCadastroLote, telaConsultaProduto);
         this.telaRelatorios = new TelaRelatorios(sc);
         this.telaReembolso = new TelaReembolso(sc);
         this.telaConsultaVendas = new TelaConsultaVendas(sc);
@@ -73,6 +75,7 @@ public class TelaPrincipal {
             System.out.println("2. Gestão de Clientes");
             System.out.println("3. Processar Reembolso");
             System.out.println("4. Consultar Histórico de Vendas");
+            System.out.println("5. Consultar a informação de um produto");
             System.out.println("0. Sair (Logout)");
             System.out.print("Escolha uma opção: ");
 
@@ -92,6 +95,10 @@ public class TelaPrincipal {
                         break;
                     case 4:
                         telaConsultaVendas.executar(fachada, atendente);
+                        break;
+                    case 5:
+                        telaConsultaProduto.executar(fachada);
+                        break;
                     case 0:
                         sair = true;
                         break;
