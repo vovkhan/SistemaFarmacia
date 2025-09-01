@@ -113,6 +113,12 @@ public class Cliente implements Serializable {
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new DadosInvalidosException("O campo 'Nome' é obrigatório.");
+        }
+        if (nome.matches(".*\\d.*")) {
+            throw new DadosInvalidosException("O campo 'Nome' não pode conter números.");
+        }
         this.nome = nome;
     }
 
@@ -121,6 +127,9 @@ public class Cliente implements Serializable {
     }
 
     public void setCpf(String cpf) {
+        if (cpf == null || !cpf.matches("^\\d{11}$")) {
+            throw new DadosInvalidosException("O campo 'CPF' deve conter exatamente 11 dígitos numéricos.");
+        }
         this.cpf = cpf;
     }
 
@@ -129,6 +138,9 @@ public class Cliente implements Serializable {
     }
 
     public void setEmail(String email) {
+        if (email != null && !email.trim().isEmpty() && !email.contains("@")) {
+            throw new DadosInvalidosException("O formato do email parece inválido.");
+        }
         this.email = email;
     }
 
