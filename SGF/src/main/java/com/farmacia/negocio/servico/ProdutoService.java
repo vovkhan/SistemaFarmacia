@@ -1,9 +1,13 @@
 package com.farmacia.negocio.servico;
 
+import com.farmacia.dados.repositorio.IRepositorioClientes;
+import com.farmacia.dados.repositorio.IRepositorioFuncionarios;
 import com.farmacia.negocio.entidade.Lote;
 import com.farmacia.negocio.entidade.Produto;
 import com.farmacia.dados.repositorio.IRepositorioEstoque;
 import com.farmacia.dados.repositorio.IRepositorioProdutos;
+import com.farmacia.dados.repositorio.IRepositorioFuncionarios;
+import com.farmacia.negocio.entidade.Supervisor;
 import com.farmacia.negocio.excecao.produto.ProdutoComEstoqueException;
 import com.farmacia.negocio.excecao.produto.ProdutoDuplicadoException;
 import com.farmacia.negocio.excecao.produto.ProdutoNaoEncontradoException;
@@ -14,17 +18,21 @@ public class ProdutoService {
 
     private final IRepositorioProdutos produtoRepository;
     private final IRepositorioEstoque loteRepository;
+    private final IRepositorioFuncionarios funcionarioRepository;
 
-    public ProdutoService(IRepositorioProdutos produtoRepo, IRepositorioEstoque loteRepo) {
+    public ProdutoService(IRepositorioProdutos produtoRepo, IRepositorioEstoque loteRepo, IRepositorioFuncionarios funcionarioRepository) {
         this.produtoRepository = produtoRepo;
         this.loteRepository = loteRepo;
+        this.funcionarioRepository = funcionarioRepository;
     }
 
-    public void adicionarNovoProduto(Produto produto) {
+    public void adicionarNovoProduto(Produto produto, Supervisor supervisor) {
         if (produtoRepository.buscarPorNomeEFabricante(produto.getNome(), produto.getFabricante()) != null) {
             throw new ProdutoDuplicadoException();
         }
         produtoRepository.salvar(produto);
+        supervisor.registrarNovoProdutoCadastrado();
+        funcionarioRepository.atualizar(supervisor);
     }
 
     public void removerProduto(int idProduto) {
