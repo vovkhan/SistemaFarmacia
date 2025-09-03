@@ -96,6 +96,7 @@ public class EstoqueService {
             throw new LoteNaoEncontradoException(idLote);
         }
 
+        lote.setQuantidade(novaQuantidade);
         loteRepository.atualizar(lote);
         supervisor.registrarAjusteDeEstoque();
         funcionarioRepository.atualizar(supervisor);
