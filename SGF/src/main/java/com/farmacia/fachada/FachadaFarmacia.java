@@ -1,5 +1,6 @@
 package com.farmacia.fachada;
 
+import com.farmacia.dados.*;
 import com.farmacia.negocio.entidade.*;
 import com.farmacia.negocio.excecao.AcessoNegadoException;
 import com.farmacia.dados.repositorio.*;
@@ -28,6 +29,9 @@ public class FachadaFarmacia {
     private final RelatorioService relatorioService;
 
     public FachadaFarmacia() {
+
+        ConfiguracaoPersistencia.garantirPastaDeDados();
+
         this.clienteRepository = new RepositorioClientesArquivo();
         this.funcionarioRepository = new RepositorioFuncionariosArquivo();
         this.produtoRepository = new RepositorioProdutosArquivo();

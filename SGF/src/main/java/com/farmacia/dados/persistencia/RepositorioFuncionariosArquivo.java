@@ -1,5 +1,6 @@
 package com.farmacia.dados.persistencia;
 
+import com.farmacia.dados.ConfiguracaoPersistencia;
 import com.farmacia.dados.repositorio.IRepositorioFuncionarios;
 import com.farmacia.negocio.entidade.Atendente;
 import com.farmacia.negocio.entidade.Funcionario;
@@ -18,7 +19,7 @@ public class RepositorioFuncionariosArquivo implements IRepositorioFuncionarios 
     private ArrayList<Funcionario> funcionarios;
     private int proximoId = 1;
     private final GeradorDeCodigoService geradorDeCodigo = new GeradorDeCodigoService();
-    private static final String NOME_ARQUIVO = "funcionarios.dat";
+    private static final String NOME_ARQUIVO = ConfiguracaoPersistencia.getCaminhoCompleto("funcionarios.dat");
 
     public RepositorioFuncionariosArquivo() {
         this.funcionarios = new ArrayList<>();

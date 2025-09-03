@@ -1,5 +1,6 @@
 package com.farmacia.dados.persistencia;
 
+import com.farmacia.dados.ConfiguracaoPersistencia;
 import com.farmacia.negocio.entidade.Produto;
 import com.farmacia.dados.repositorio.IRepositorioProdutos;
 import com.farmacia.negocio.servico.GeradorDeCodigoService;
@@ -14,7 +15,7 @@ public class RepositorioProdutosArquivo implements IRepositorioProdutos {
     private ArrayList<Produto> produtos;
     private int proximoId = 1;
     private final GeradorDeCodigoService geradorDeCodigo = new GeradorDeCodigoService();
-    private static final String NOME_ARQUIVO = "produtos.dat";
+    private static final String NOME_ARQUIVO = ConfiguracaoPersistencia.getCaminhoCompleto("produtos.dat");
 
     public RepositorioProdutosArquivo() {
         this.produtos = new ArrayList<>();

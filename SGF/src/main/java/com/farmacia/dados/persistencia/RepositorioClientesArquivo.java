@@ -2,6 +2,7 @@ package com.farmacia.dados.persistencia;
 
 import java.io.*;
 import com.farmacia.negocio.entidade.Cliente;
+import com.farmacia.dados.ConfiguracaoPersistencia;
 import com.farmacia.dados.repositorio.IRepositorioClientes;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,7 +13,7 @@ public class RepositorioClientesArquivo implements IRepositorioClientes {
 
     private ArrayList<Cliente> clientes;
     private int proximoId = 1;
-    private static final String NOME_ARQUIVO = "clientes.dat";
+    private static final String NOME_ARQUIVO = ConfiguracaoPersistencia.getCaminhoCompleto("clientes.dat");
 
     public RepositorioClientesArquivo() {
         this.clientes = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.farmacia.dados.persistencia;
 
+import com.farmacia.dados.ConfiguracaoPersistencia;
 import com.farmacia.dados.repositorio.IRepositorioEstoque;
 import com.farmacia.negocio.entidade.Lote;
 import com.farmacia.negocio.entidade.Produto;
@@ -14,7 +15,7 @@ public class RepositorioEstoqueArquivo implements IRepositorioEstoque {
 
     private ArrayList<Lote> lotes;
     private int proximoId = 1;
-    private static final String NOME_ARQUIVO = "lotes.dat";
+    private static final String NOME_ARQUIVO = ConfiguracaoPersistencia.getCaminhoCompleto("lotes.dat");
 
     public RepositorioEstoqueArquivo() {
         this.lotes = new ArrayList<>();
