@@ -97,6 +97,10 @@ public class TelaGestaoDeProdutos {
             String codigo = sc.nextLine();
             Produto p = fachada.buscarProdutoPorCodigo(codigo);
 
+//            if (p == null) {
+//                throw new ProdutoNaoEncontradoException(codigo);
+//            }
+
             System.out.print("Novo Nome (Atual: " + p.getNome() + "): "); String nome = sc.nextLine();
             System.out.print("Novo Fabricante (Atual: " + p.getFabricante() + "): "); String fabricante = sc.nextLine();
             System.out.print("Novo Preço (Atual: " + p.getPreco() + "): "); double preco = sc.nextDouble(); sc.nextLine();
@@ -114,8 +118,11 @@ public class TelaGestaoDeProdutos {
         try {
             System.out.print("Digite o código do produto a ser removido: ");
             String codigo = sc.nextLine();
-            sc.nextLine();
             Produto p = fachada.buscarProdutoPorCodigo(codigo);
+
+//            if (p == null) {
+//                throw new ProdutoNaoEncontradoException(codigo);
+//            }
 
             fachada.removerProduto(p.getId(), supervisorLogado);
             System.out.println("\nPRODUTO REMOVIDO COM SUCESSO!");
@@ -129,8 +136,11 @@ public class TelaGestaoDeProdutos {
         try {
             System.out.print("Primeiro, digite o código do produto para ver seus lotes: ");
             String codigo = sc.nextLine();
-            sc.nextLine();
             Produto p = fachada.buscarProdutoPorCodigo(codigo);
+
+//            if (p == null) {
+//                throw new ProdutoNaoEncontradoException(codigo);
+//            }
 
             String detalhes = fachada.getStatusDetalhadoProduto(p.getId());
             System.out.println(detalhes);

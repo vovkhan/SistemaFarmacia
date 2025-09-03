@@ -2,11 +2,8 @@ package com.farmacia.negocio.servico;
 
 import com.farmacia.negocio.entidade.*;
 import com.farmacia.dados.repositorio.*;
-import com.farmacia.negocio.excecao.venda.CarrinhoVazioException;
+import com.farmacia.negocio.excecao.venda.*;
 import com.farmacia.negocio.excecao.estoque.EstoqueInsuficienteException;
-import com.farmacia.negocio.excecao.venda.PontosInsuficientesException;
-import com.farmacia.negocio.excecao.venda.ReembolsoInvalidoException;
-import com.farmacia.negocio.excecao.venda.UsoDePontosNaoPermitidoException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -199,5 +196,13 @@ public class VendaService {
         }
 
         return vendasFiltradas;
+    }
+
+    public Venda buscarVendaPorCodigo(String codigo) {
+        Venda venda = vendaRepository.buscarPorCodigo(codigo);
+        if(venda == null){
+            throw new VendaNaoEncontradaException(codigo);
+        }
+        return venda;
     }
 }

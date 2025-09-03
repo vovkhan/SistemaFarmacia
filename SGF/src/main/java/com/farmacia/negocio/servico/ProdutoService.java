@@ -36,7 +36,7 @@ public class ProdutoService {
     }
 
     public void removerProduto(int idProduto) {
-        Produto produtoParaRemover = produtoRepository.buscarPorId(idProduto);
+        Produto produtoParaRemover = produtoRepository.buscarPorId(idProduto);;
         if (produtoParaRemover == null) {
             throw new ProdutoNaoEncontradoException(idProduto);
         }
@@ -58,7 +58,7 @@ public class ProdutoService {
     }
 
     public void atualizarDadosProduto(int idProduto, String novoNome, String novoFabricante, double novoPreco, int novoEstoqueMinimo) {
-        Produto produtoParaAtualizar = produtoRepository.buscarPorId(idProduto);
+        Produto produtoParaAtualizar = buscarProdutoPorId(idProduto);
         if (produtoParaAtualizar == null) {
             throw new ProdutoNaoEncontradoException(idProduto);
         }
@@ -74,6 +74,22 @@ public class ProdutoService {
         produtoParaAtualizar.setEstoqueMinimo(novoEstoqueMinimo);
 
         produtoRepository.atualizar(produtoParaAtualizar);
+    }
+
+    public Produto buscarProdutoPorCodigo(String codigo) {
+        Produto produto = produtoRepository.buscarPorCodigo(codigo);
+        if (produto == null) {
+            throw new ProdutoNaoEncontradoException(codigo);
+        }
+        return produto;
+    }
+
+    public Produto buscarProdutoPorId(int id) {
+        Produto produto = produtoRepository.buscarPorId(id);
+        if (produto == null) {
+            throw new ProdutoNaoEncontradoException(id);
+        }
+        return produto;
     }
 
 }
