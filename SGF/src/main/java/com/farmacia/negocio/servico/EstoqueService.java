@@ -1,9 +1,11 @@
 package com.farmacia.negocio.servico;
 
+import com.farmacia.dados.repositorio.IRepositorioFuncionarios;
 import com.farmacia.negocio.entidade.Lote;
 import com.farmacia.negocio.entidade.Produto;
 import com.farmacia.dados.repositorio.IRepositorioEstoque;
 import com.farmacia.dados.repositorio.IRepositorioProdutos;
+import com.farmacia.negocio.entidade.Supervisor;
 import com.farmacia.negocio.excecao.DadosInvalidosException;
 import com.farmacia.negocio.excecao.estoque.LoteNaoEncontradoException;
 import com.farmacia.negocio.excecao.produto.ProdutoNaoEncontradoException;
@@ -16,17 +18,19 @@ public class EstoqueService {
 
     private final IRepositorioEstoque loteRepository;
     private final IRepositorioProdutos produtoRepository;
+    private final IRepositorioFuncionarios funcionarioRepository;
     private static final int DIAS_PARA_ALERTA_VENCIMENTO = 30;
 
-    public EstoqueService(IRepositorioEstoque loteRepo, IRepositorioProdutos produtoRepo) {
+    public EstoqueService(IRepositorioEstoque loteRepo, IRepositorioProdutos produtoRepo, IRepositorioFuncionarios funcionarioRepository) {
         this.loteRepository = loteRepo;
         this.produtoRepository = produtoRepo;
+        this.funcionarioRepository = funcionarioRepository;
     }
 
     /**
      * Adiciona um novo lote de um produto existente ao estoque.
      */
-    public void adicionarLote(int idProduto, int quantidade, LocalDate dataValidade) {
+    public void adicionarLote(int idProduto, int quantidade, LocalDate dataValidade, Supervisor supervisor) {
         Produto produto = produtoRepository.buscarPorId(idProduto);
         if (produto == null) {
             throw new ProdutoNaoEncontradoException(idProduto);
@@ -35,6 +39,8 @@ public class EstoqueService {
         Lote novoLote = new Lote(produto, quantidade, dataValidade);
 
         loteRepository.salvar(novoLote);
+        supervisor.registrarNovoLoteRecebido();
+        funcionarioRepository.atualizar(supervisor);
     }
 
     public String consultarStatusDetalhadoProduto(int idProduto) {
@@ -79,7 +85,7 @@ public class EstoqueService {
     /**
      * Permite que um Supervisor ajuste manualmente a quantidade de um lote específico.
      */
-    public void ajustarQuantidadeLote(int idLote, int novaQuantidade) {
+    public void ajustarQuantidadeLote(int idLote, int novaQuantidade, Supervisor supervisor) {
         if (novaQuantidade < 0) {
             throw new DadosInvalidosException("A quantidade do lote não pode ser negativa.");
         }
@@ -91,6 +97,8 @@ public class EstoqueService {
         }
 
         loteRepository.atualizar(lote);
+        supervisor.registrarAjusteDeEstoque();
+        funcionarioRepository.atualizar(supervisor);
         System.out.println("Estoque do lote " + idLote + " ajustado para " + novaQuantidade);
     }
 

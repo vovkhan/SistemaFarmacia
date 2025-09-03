@@ -36,8 +36,8 @@ public class FachadaFarmacia {
 
         this.clienteService = new ClienteService(clienteRepository, funcionarioRepository);
         this.funcionarioService = new FuncionarioService(funcionarioRepository);
-        this.produtoService = new ProdutoService(produtoRepository, loteRepository);
-        this.estoqueService = new EstoqueService(loteRepository, produtoRepository);
+        this.produtoService = new ProdutoService(produtoRepository, loteRepository, funcionarioRepository);
+        this.estoqueService = new EstoqueService(loteRepository, produtoRepository, funcionarioRepository);
         this.vendaService = new VendaService(vendaRepository, loteRepository, clienteRepository, funcionarioRepository);
         this.relatorioService = new RelatorioService(vendaRepository, funcionarioRepository);
         this.reciboService = new ReciboService();
@@ -108,7 +108,7 @@ public class FachadaFarmacia {
         if (!(funcionarioLogado instanceof Supervisor)) {
             throw new AcessoNegadoException("Supervisores");
         }
-        produtoService.adicionarNovoProduto(produto);
+        produtoService.adicionarNovoProduto(produto, (Supervisor) funcionarioLogado);
     }
 
     public void removerProduto(int idProduto, Funcionario funcionarioLogado) {
@@ -129,7 +129,7 @@ public class FachadaFarmacia {
         if (!(funcionarioLogado instanceof Supervisor)) {
             throw new AcessoNegadoException("Supervisores ou Gerentes");
         }
-        estoqueService.adicionarLote(idProduto, quantidade, dataValidade);
+        estoqueService.adicionarLote(idProduto, quantidade, dataValidade, (Supervisor) funcionarioLogado);
     }
 
     public String getStatusDetalhadoProduto(int idProduto) {
@@ -144,7 +144,7 @@ public class FachadaFarmacia {
         if (!(funcionarioLogado instanceof Supervisor)) {
             throw new AcessoNegadoException("Supervisores");
         }
-        estoqueService.ajustarQuantidadeLote(idLote, novaQuantidade);
+        estoqueService.ajustarQuantidadeLote(idLote, novaQuantidade, (Supervisor) funcionarioLogado);
     }
 
     public List<String> verificarAlertasDeEstoque(Funcionario funcionarioLogado) {
