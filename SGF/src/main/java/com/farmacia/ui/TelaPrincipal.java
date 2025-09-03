@@ -53,6 +53,7 @@ public class TelaPrincipal {
                 System.out.println("\nLogin bem-sucedido! Bem-vindo(a), " + funcionarioLogado.getNome());
             } catch (AutenticacaoException e) {
                 System.err.println("ERRO: " + e.getMessage() + "\n");
+                System.out.println("Por favor, tente novamente.\n");
             }
         }
 
