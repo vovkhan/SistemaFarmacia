@@ -99,7 +99,7 @@ public class FachadaFarmacia {
     }
 
     public Venda buscarVendaPorCodigo(String codigo) {
-        return vendaRepository.buscarPorCodigo(codigo);
+        return vendaService.buscarVendaPorCodigo(codigo);
     }
 
     public List<Venda> consultarVendas(LocalDate dataInicio, LocalDate dataFim, Cliente cliente) {
@@ -189,11 +189,11 @@ public class FachadaFarmacia {
     }
 
     public Produto buscarProdutoPorCodigo(String codigo) {
-        return produtoRepository.buscarPorCodigo(codigo);
+        return produtoService.buscarProdutoPorCodigo(codigo);
     }
 
     public Produto buscarProdutoPorId(int id) {
-        return produtoRepository.buscarPorId(id);
+        return produtoService.buscarProdutoPorId(id);
     }
 
 }
