@@ -61,6 +61,7 @@ public class TelaCadastroProduto {
             System.out.println("\nPRODUTO ADICIONADO COM SUCESSO! CÓDIGO GERADO: " + novoProduto.getCodigo());
 
         } catch (DadosInvalidosException | ProdutoDuplicadoException e) {
+            //Produto com o mesmo nome pode mas não pode mesmo nome E fabricante inclusive... só pra avisar!
             System.err.println("\nERRO AO ADICIONAR: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("\nERRO: Entrada de dados inválida. Tente novamente.");
